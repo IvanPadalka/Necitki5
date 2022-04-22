@@ -1,0 +1,37 @@
+﻿import skfuzzy
+import skfuzzy
+import numpy as np
+p=['Андрієнко','Василенко',"Іваненко","Дмитренко","Петренко","Романенко"]
+# matrix2 = skfuzzy.fuzzymath.maxmin_composition(matrix,matrix)
+# c=np.fmax(matrix2,matrix)
+# #print(matrix2,"\n\n",c)
+# matrix2 = skfuzzy.fuzzymath.maxmin_composition(c,c)
+# c2=np.fmax(matrix2,matrix)
+# #print(matrix2,"\n\n",c2)
+# matrix2 = skfuzzy.fuzzymath.maxmin_composition(c2,c2)
+# c3=np.fmax(matrix2,c2)
+# if c3.all()==c2.all():
+#     #print("замикання знайдено")
+# =============================================================================
+n=12
+def matrix_generation(n):
+    a =np.round(np.random.rand(n, n),1)
+    m = np.tril(a) + np.tril(a, -1).T
+    np.fill_diagonal(m,1)
+    return m
+#print(matrix_generation(n))
+matrix=matrix_generation(n)
+c2=skfuzzy.fuzzymath.maxmin_composition(matrix,matrix)
+#c=np.fmax(c2,matrix)
+#print(matrix,"\n\n",c2)
+def warshall(a):
+    assert (len(row) == len(a) for row in a)
+    n = len(a)
+    for k in range(n):
+        for i in range(n):
+            for j in range(n):
+                a[i][j] = a[i][j] or (a[i][k] and a[k][j])
+    return a
+print(matrix,"\n")
+#print(warshall(matrix))
+print(skfuzzy.fuzzymath.maxprod_composition(matrix,matrix))
